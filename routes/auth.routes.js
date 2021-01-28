@@ -10,7 +10,9 @@ router.post('/registration', [
     check('password', 'Пароль не менее 6 символов и не более 16').isLength({ min: 6, max: 16 })
 ], authController.registration)
 router.post('/login', authController.login)
-router.get('/users', roleMiddleware(['ADMIN']), authController.getUsers)
+router.get('/auth', authMiddleware, authController.auth)
+router.get('/users', roleMiddleware(['USER']), authController.getUsers)
+// router.get('/users', roleMiddleware(['ADMIN']), authController.getUsers)
 router.post('/createuser', authController.createUser)
 
 module.exports = router
